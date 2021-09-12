@@ -24,6 +24,14 @@ class TransactionWebClient {
         },
         body: transactionJson);
 
+    if (response.statusCode == 400) {
+      throw Exception('Ocorrey um erro na transação!');
+    }
+
+    if (response.statusCode == 401) {
+      throw Exception('Ocorrey um erro na autenticação!');
+    }
+
     return Transaction.fromJson(jsonDecode(response.body));
   }
 }
