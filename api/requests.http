@@ -1,0 +1,26 @@
+
+# Subir api
+# java -jar server.jar
+
+# Espelhar ngrok
+# navegar até a pasta Development
+# ./ngrok http 8080
+
+@url = http://localhost:8080/ 
+# @url = https://24a5e8b4c301.ngrok.io
+
+### Get Transactions
+GET {{url}}transactions
+
+### Post Transactions
+POST {{url}}transactions
+content-type: application/json
+password: 1000
+
+{
+  	"value": 200.0,
+  	"contact": {
+  		"name": "gui",
+  		"accountNumber": 1000
+  	}
+}
