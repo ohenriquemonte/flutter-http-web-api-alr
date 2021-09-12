@@ -1,0 +1,4 @@
+#Sun Sep 12 16:06:18 BRT 2021
+base.0=/Users/henriquemontenegro/Documents/Development/cursos/alr/flutter-http-web-api-alr/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

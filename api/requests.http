@@ -1,13 +1,15 @@
 
 # Subir api
+# navegar até a pasta api
 # java -jar server.jar
 
 # Espelhar ngrok
 # navegar até a pasta Development
 # ./ngrok http 8080
 
-@url = http://localhost:8080/ 
+# @url = http://localhost:8080/ 
 # @url = https://24a5e8b4c301.ngrok.io
+@url = https://15f1-2804-7f4-c1a3-ed50-64b7-8b7-48d5-a8c5.ngrok.io/
 
 ### Get Transactions
 GET {{url}}transactions

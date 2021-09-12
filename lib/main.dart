@@ -1,12 +1,13 @@
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
+import 'components/transaction_auth_dialog.dart';
+
 void main() {
   runApp(BytebankApp());
 }
 
 class BytebankApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +19,7 @@ class BytebankApp extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ),
       ),
-      home: Dashboard(),
+      home: TransactionAuthDialog(),
     );
   }
 }
