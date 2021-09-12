@@ -101,8 +101,7 @@ class _TransactionFormState extends State<TransactionForm> {
             context: context,
             builder: (contextDialog) {
               return SuccessDialog('Transação efetuada com sucesso!');
-            });
-        Navigator.pop(context);
+            }).then((value) => Navigator.pop(context));
       }
     }).catchError((e) {
       showDialog(
