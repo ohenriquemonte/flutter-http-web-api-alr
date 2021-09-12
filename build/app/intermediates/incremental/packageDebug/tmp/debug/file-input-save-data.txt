@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Sep 12 16:06:20 BRT 2021
+#Sun Sep 12 16:50:02 BRT 2021
 4.path=flutter_assets/fonts/MaterialIcons-Regular.otf
 8.set=ASSET
 6.path=lib/arm64-v8a/libflutter.so

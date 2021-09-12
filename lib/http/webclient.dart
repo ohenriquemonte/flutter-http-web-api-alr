@@ -7,6 +7,6 @@ final Client client = HttpClientWithInterceptor.build(
   interceptors: [LoggingInterceptor()],
 );
 
-const String baseUrl = 'http://192.168.58.1:8080/transactions';
-
-
+// const String baseUrl = 'http://192.168.58.1:8080/transactions';
+const String baseUrl =
+    'https://15f1-2804-7f4-c1a3-ed50-64b7-8b7-48d5-a8c5.ngrok.io/transactions';
