@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bytebank/models/contact.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:bytebank/database/app_database.dart';
 
 class ContactDao {
-
   static const String tableSql = 'CREATE TABLE $_tableName('
       '$_id INTEGER PRIMARY KEY, '
       '$_name TEXT, '
@@ -34,7 +35,7 @@ class ContactDao {
   }
 
   List<Contact> _toList(List<Map<String, dynamic>> result) {
-    final List<Contact> contacts = List();
+    final List<Contact> contacts = [];
     for (Map<String, dynamic> row in result) {
       final Contact contact = Contact(
         row[_id],

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bytebank/components/progress.dart';
 import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/models/contact.dart';
@@ -20,7 +22,7 @@ class _ContactsListState extends State<ContactsList> {
         title: Text('Transfer'),
       ),
       body: FutureBuilder<List<Contact>>(
-        initialData: List(),
+        initialData: [],
         future: _dao.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -28,14 +30,14 @@ class _ContactsListState extends State<ContactsList> {
               break;
             case ConnectionState.waiting:
               return Progress();
-              break;
+            // break;
             case ConnectionState.active:
               break;
             case ConnectionState.done:
-              final List<Contact> contacts = snapshot.data;
+              final List<Contact>? contacts = snapshot.data;
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final Contact contact = contacts[index];
+                  final Contact contact = contacts![index];
                   return _ContactItem(
                     contact,
                     onClick: () {
@@ -47,20 +49,22 @@ class _ContactsListState extends State<ContactsList> {
                     },
                   );
                 },
-                itemCount: contacts.length,
+                itemCount: contacts?.length,
               );
-              break;
+            // break;
           }
           return Text('Unknown error');
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ContactForm(),
-            ),
-          ).then((value) => setState(() {}));
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => ContactForm(),
+                ),
+              )
+              .then((value) => setState(() {}));
         },
         child: Icon(
           Icons.add,
@@ -76,7 +80,7 @@ class _ContactItem extends StatelessWidget {
 
   _ContactItem(
     this.contact, {
-    @required this.onClick,
+    required this.onClick,
   });
 
   @override

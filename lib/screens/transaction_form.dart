@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bytebank/components/response_dialog.dart';
 import 'package:bytebank/components/transaction_auth_dialog.dart';
 import 'package:bytebank/http/webclients/transaction_webclient.dart';
@@ -62,10 +64,10 @@ class _TransactionFormState extends State<TransactionForm> {
                   child: RaisedButton(
                     child: Text('Transfer'),
                     onPressed: () {
-                      final double value =
+                      final double? value =
                           double.tryParse(_valueController.text);
                       final transactionCreated =
-                          Transaction(value, widget.contact);
+                          Transaction(value!, widget.contact);
 
                       showDialog(
                           context: context,
@@ -96,13 +98,13 @@ class _TransactionFormState extends State<TransactionForm> {
     // await Future.delayed(Duration(seconds: 1));
 
     _webClient.save(transactionCreated, password).then((transaction) {
-      if (transaction != null) {
-        showDialog(
-            context: context,
-            builder: (contextDialog) {
-              return SuccessDialog('Transação efetuada com sucesso!');
-            }).then((value) => Navigator.pop(context));
-      }
+      // if (transaction != null) {
+      showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return SuccessDialog('Transação efetuada com sucesso!');
+          }).then((value) => Navigator.pop(context));
+      // }
     }).catchError((e) {
       showDialog(
           context: context,

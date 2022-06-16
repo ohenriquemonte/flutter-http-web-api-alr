@@ -1,7 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
-import 'components/transaction_auth_dialog.dart';
+// import 'components/transaction_auth_dialog.dart';
 
 void main() {
   runApp(BytebankApp());

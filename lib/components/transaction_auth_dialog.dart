@@ -1,7 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class TransactionAuthDialog extends StatefulWidget {
-  final Function(String password) onConfirm;
+  final Function(String password)? onConfirm;
 
   TransactionAuthDialog({@required this.onConfirm});
 
@@ -38,7 +40,7 @@ class _TransactionAuthDialogState extends State<TransactionAuthDialog> {
             child: Text('Cancel')),
         FlatButton(
             onPressed: () {
-              widget.onConfirm(_passwordController.text);
+              widget.onConfirm!(_passwordController.text);
               Navigator.pop(context);
             },
             child: Text('Confirm')),

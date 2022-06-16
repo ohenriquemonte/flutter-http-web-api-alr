@@ -9,7 +9,7 @@
 
 # @url = http://localhost:8080/ 
 # @url = https://24a5e8b4c301.ngrok.io
-@url = https://15f1-2804-7f4-c1a3-ed50-64b7-8b7-48d5-a8c5.ngrok.io/
+@url = http://e961-2804-7f4-c2a5-9a16-99ca-aa04-2f58-9662.ngrok.io/
 
 ### Get Transactions
 GET {{url}}transactions

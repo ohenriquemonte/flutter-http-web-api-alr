@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +55,9 @@ class _ContactFormState extends State<ContactForm> {
                   child: Text('Create'),
                   onPressed: () {
                     final String name = _nameController.text;
-                    final int accountNumber =
+                    final int? accountNumber =
                         int.tryParse(_accountNumberController.text);
-                    final Contact newContact = Contact(0, name, accountNumber);
+                    final Contact newContact = Contact(0, name, accountNumber!);
                     _dao.save(newContact).then((id) => Navigator.pop(context));
                   },
                 ),

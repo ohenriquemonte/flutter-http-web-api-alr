@@ -8,6 +8,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +66,7 @@ class _FeatureItem extends StatelessWidget {
   _FeatureItem(
     this.name,
     this.icon, {
-    @required this.onClick,
+    required this.onClick,
   });
 
   @override
