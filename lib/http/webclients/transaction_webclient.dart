@@ -25,7 +25,7 @@ class TransactionWebClient {
         .toList();
   }
 
-  Future<Transaction> save(Transaction transaction, String password) async {
+  Future<Transaction?> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
 
     final Response response =
@@ -36,14 +36,19 @@ class TransactionWebClient {
             },
             body: transactionJson);
 
-    if (response.statusCode == 400) {
-      throw Exception('Ocorrey um erro na transação!');
+    if (response.statusCode == 200) {
+      return Transaction.fromJson(jsonDecode(response.body));
     }
 
-    if (response.statusCode == 401) {
-      throw Exception('Ocorrey um erro na autenticação!');
-    }
-
-    return Transaction.fromJson(jsonDecode(response.body));
+    _throwHttpError(response.statusCode);
+    return null;
   }
+
+  void _throwHttpError(int statusCode) =>
+      throw Exception(_statusCodeResponses[statusCode]);
+
+  static final Map<int, String> _statusCodeResponses = {
+    400: 'Ocorreu um erro na transação!',
+    401: 'Ocorreu um erro na autenticação!',
+  };
 }
