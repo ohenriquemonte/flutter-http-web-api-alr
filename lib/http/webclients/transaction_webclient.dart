@@ -12,12 +12,8 @@ class TransactionWebClient {
     Client client = InterceptedClient.build(
       interceptors: [LoggingInterceptor()],
     );
-
-    final Response response = await client
-        .get(Uri.http(baseUrl, 'transactions'))
-        .timeout(Duration(seconds: 10));
-
-    print(response.body);
+    final Response response =
+        await client.get(Uri.http(baseUrl, '/transactions'));
 
     final List<dynamic> decodedJson = jsonDecode(response.body);
     return decodedJson
@@ -29,7 +25,7 @@ class TransactionWebClient {
     final String transactionJson = jsonEncode(transaction.toJson());
 
     final Response response =
-        await client.post(Uri.http(baseUrl, 'transactions'),
+        await client.post(Uri.http(baseUrl, '/transactions'),
             headers: {
               'Content-type': 'application/json',
               'password': password,
@@ -40,15 +36,17 @@ class TransactionWebClient {
       return Transaction.fromJson(jsonDecode(response.body));
     }
 
-    _throwHttpError(response.statusCode);
-    return null;
+    throw HttpException(_statusCodeResponses[response.statusCode]!);
   }
-
-  void _throwHttpError(int statusCode) =>
-      throw Exception(_statusCodeResponses[statusCode]);
 
   static final Map<int, String> _statusCodeResponses = {
     400: 'Ocorreu um erro na transação!',
     401: 'Ocorreu um erro na autenticação!',
   };
+}
+
+class HttpException implements Exception {
+  final String message;
+
+  HttpException(this.message);
 }

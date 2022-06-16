@@ -5,8 +5,8 @@ import 'interceptors/logging_interceptor.dart';
 
 final Client client = InterceptedClient.build(
   interceptors: [LoggingInterceptor()],
+  requestTimeout: Duration(seconds: 5),
 );
 
 // const String baseUrl = 'http://192.168.58.1:8080/transactions';
-const String baseUrl =
-    'https://15f1-2804-7f4-c1a3-ed50-64b7-8b7-48d5-a8c5.ngrok.io/transactions';
+const String baseUrl = 'e961-2804-7f4-c2a5-9a16-99ca-aa04-2f58-9662.ngrok.io.';

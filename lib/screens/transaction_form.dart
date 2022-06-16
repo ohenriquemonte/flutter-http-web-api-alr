@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
+
 import 'package:bytebank/components/response_dialog.dart';
 import 'package:bytebank/components/transaction_auth_dialog.dart';
 import 'package:bytebank/http/webclients/transaction_webclient.dart';
@@ -25,6 +27,7 @@ class _TransactionFormState extends State<TransactionForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text('New transaction'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -62,6 +65,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 child: SizedBox(
                   width: double.maxFinite,
                   child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
                     child: Text('Transfer'),
                     onPressed: () {
                       final double? value =
@@ -95,8 +99,6 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _save(Transaction transactionCreated, String password,
       BuildContext context) async {
-    // await Future.delayed(Duration(seconds: 1));
-
     final Transaction? transaction =
         await _webClient.save(transactionCreated, password).catchError((e) {
       showDialog(
@@ -104,7 +106,13 @@ class _TransactionFormState extends State<TransactionForm> {
           builder: (contextDialog) {
             return FailureDialog(e.message);
           });
-    }, test: (e) => e is Exception);
+    }, test: (e) => e is HttpException).catchError((e) {
+      showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return FailureDialog(e.message);
+          });
+    }, test: (e) => e is TimeoutException);
 
     if (transaction != null) {
       await showDialog(

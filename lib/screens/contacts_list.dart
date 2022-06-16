@@ -20,6 +20,7 @@ class _ContactsListState extends State<ContactsList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transfer'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: [],
@@ -69,6 +70,7 @@ class _ContactsListState extends State<ContactsList> {
         child: Icon(
           Icons.add,
         ),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

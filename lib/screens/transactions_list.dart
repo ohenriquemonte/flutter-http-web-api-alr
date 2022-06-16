@@ -1,3 +1,7 @@
+// ignore_for_file: dead_code
+
+import 'dart:developer';
+
 import 'package:bytebank/components/centered_message.dart';
 import 'package:bytebank/components/progress.dart';
 import 'package:bytebank/http/webclients/transaction_webclient.dart';
@@ -12,6 +16,7 @@ class TransactionsList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Transactions'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder<List<Transaction>>(
         future: _webClient.findAll(),
@@ -21,13 +26,14 @@ class TransactionsList extends StatelessWidget {
               break;
             case ConnectionState.waiting:
               return Progress();
-            // break;
+              break;
             case ConnectionState.active:
               break;
             case ConnectionState.done:
+              log('snapshot ${snapshot.hasData}');
               if (snapshot.hasData) {
-                final List<Transaction>? transactions = snapshot.data;
-                if (transactions!.isNotEmpty) {
+                final List<Transaction> transactions = snapshot.data!;
+                if (transactions.isNotEmpty) {
                   return ListView.builder(
                     itemBuilder: (context, index) {
                       final Transaction transaction = transactions[index];
@@ -58,7 +64,7 @@ class TransactionsList extends StatelessWidget {
                 'No transactions found',
                 icon: Icons.warning,
               );
-            // break;
+              break;
           }
 
           return CenteredMessage('Unknown error');
