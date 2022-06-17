@@ -97,23 +97,48 @@ class _TransactionFormState extends State<TransactionForm> {
     );
   }
 
-  void _save(Transaction transactionCreated, String password,
+  Future<Transaction?> _send(Transaction transactionCreated, String password,
       BuildContext context) async {
     final Transaction? transaction =
         await _webClient.save(transactionCreated, password).catchError((e) {
-      showDialog(
-          context: context,
-          builder: (contextDialog) {
-            return FailureDialog(e.message);
-          });
+      _showFailureMessage(context, e, message: 'Erro http');
     }, test: (e) => e is HttpException).catchError((e) {
-      showDialog(
-          context: context,
-          builder: (contextDialog) {
-            return FailureDialog(e.message);
-          });
-    }, test: (e) => e is TimeoutException);
+      _showFailureMessage(context, e, message: 'Erro timeout');
+    }, test: (e) => e is TimeoutException).catchError((e) {
+      _showFailureMessage(context, e);
+    });
 
+    return transaction;
+  }
+
+  void _save(
+    Transaction transactionCreated,
+    String password,
+    BuildContext context,
+  ) async {
+    Transaction? transaction = await _send(
+      transactionCreated,
+      password,
+      context,
+    );
+
+    await _showSuccessfulMessage(transaction, context);
+  }
+
+  void _showFailureMessage(
+    BuildContext context,
+    e, {
+    String message = 'Erro desconhecido',
+  }) {
+    showDialog(
+        context: context,
+        builder: (contextDialog) {
+          return FailureDialog('$message: ${e.message}');
+        });
+  }
+
+  Future<void> _showSuccessfulMessage(
+      Transaction? transaction, BuildContext context) async {
     if (transaction != null) {
       await showDialog(
           context: context,
